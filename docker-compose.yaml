@@ -1,0 +1,69 @@
+version: "3.9"
+
+services: 
+
+    nginx:
+
+        build: 
+            context: ./nginx/docker
+            dockerfile: Dockerfile.development
+
+        container_name: nginx
+        restart: always
+        tty: true
+
+        volumes: 
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./nginx/static/public:/etc/nginx/static/public
+
+        networks: 
+            - dolce_cestas
+
+        ports: 
+            - "80:80"
+
+        depends_on:
+            - api-1
+
+    api-1:
+
+        build: 
+            context: ./api/docker
+            dockerfile: Dockerfile.development
+
+        container_name: api-1
+        restart: always
+        tty: true
+
+        volumes: 
+            - ./api:/src/api
+
+        networks: 
+            - dolce_cestas
+
+        depends_on: 
+            - mysql
+
+    mysql:
+
+        image: mysql
+        container_name: mysql
+        restart: always
+        tty: true
+
+        volumes: 
+            - ./mysql:/var/lib/mysql
+
+        environment: 
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=admins-dev
+            - MYSQL_DATABASE=clients-dev
+            - MYSQL_DATABASE=commodities-dev
+
+        networks: 
+            - dolce_cestas
+
+networks: 
+
+    dolce_cestas:
+        driver: bridge
