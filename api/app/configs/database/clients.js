@@ -1,10 +1,5 @@
 module.exports = {
-    development: {
-        username: "root",
-        password: "root",
-        database: "clients_dev",
-        host: "mysql",
-        port: "3306",
-        dialect: "mysql",
-    }
+    "config": `${__dirname}/../configs/databases.js`,
+    "models-path": `${__dirname}/../models/clients`,
+    "migrations-path": `${__dirname}/../migrations/clients`,
 }
