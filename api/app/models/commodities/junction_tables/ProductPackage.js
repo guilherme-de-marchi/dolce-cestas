@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 // Commodities DB connection
-const sequelize = require(`${__dirname}/../../databases/index`).commodities;
+const sequelize = require(`${__dirname}/../../../databases/index`).commodities;
 
 const ProductPackage = sequelize.define('ProductPackage', {
 

@@ -1,6 +1,5 @@
-const sequelize = require(`${__dirname}/../databases/index`).commodities;
-
-const models = sequelize.models;
+// Commodities
+var sequelize = require(`${__dirname}/../databases/index`).commodities;
 
 require(`${__dirname}/commodities/junction_tables/ProductTag`)
 require(`${__dirname}/commodities/junction_tables/PackageImage`)
@@ -12,6 +11,7 @@ require(`${__dirname}/commodities/Package`);
 require(`${__dirname}/commodities/Product`);
 require(`${__dirname}/commodities/Image`);
 
+var models = sequelize.models;
 
 models.Product.belongsToMany(models.Tag, { 
     'through': models.ProductTag,
@@ -70,4 +70,35 @@ models.Image.belongsToMany(models.Package, {
     'through': models.PackageImage,
     'as': 'packages',
     'foreignKey': 'imageId',
+});
+
+
+//Clients
+var sequelize = require(`${__dirname}/../databases/index`).clients;
+var commodities = require(`${__dirname}/../databases/index`).commodities;
+
+//require(`${__dirname}/clients/junction_tables/RequestPackage`);
+require(`${__dirname}/clients/Client`);
+require(`${__dirname}/clients/Request`);
+
+var models = sequelize.models;
+
+models.Client.hasMany(models.Request, {
+    'as': 'requests',
+    'foreignKey': 'clientId',
+});
+models.Request.belongsTo(models.Client, {
+    'as': 'client',
+    'foreignKey': 'requestId',
+});
+
+models.Request.hasMany(commodities.models.Package, {
+    //'through': models.RequestPackage,
+    'as': 'packages',
+    'foreignKey': 'requestId',
+});
+commodities.models.Package.hasMany(models.Request, {
+    //'through': models.RequestPackage,
+    'as': 'requests',
+    'foreignKey': 'packageId',
 });

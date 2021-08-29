@@ -1,24 +1,27 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
+// Clients DB connection
+const sequelize = require(`${__dirname}/../../../databases/index`).clients;
+
 // Commodities DB connection
-const sequelize = require(`${__dirname}/../../../databases/index`).commodities;
+const commodities = require(`${__dirname}/../../../databases/index`).commodities;
 
-const ProductTag = sequelize.define('ProductTag', {
+const RequestPackage = sequelize.define('RequestPackage', {
 
-    productId: {
+    requestId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Product',
+            model: 'Request',
             key: 'id',
         },
     },
 
-    tagId: {
+    packageId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Tag',
+            model: commodities.models.Package,
             key: 'id',
         },
     },
