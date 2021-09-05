@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Clients DB connection
-const sequelize = require(`${__dirname}/../../databases/index`).clients;
+const sequelize = require(`${__dirname}/../../databases/index`).main;
 
 const Client = sequelize.define('Request', {
 

@@ -1,10 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Clients DB connection
-const sequelize = require(`${__dirname}/../../../databases/index`).clients;
-
-// Commodities DB connection
-const commodities = require(`${__dirname}/../../../databases/index`).commodities;
+const sequelize = require(`${__dirname}/../../../databases/index`).main;
 
 const RequestPackage = sequelize.define('RequestPackage', {
 
@@ -12,7 +8,7 @@ const RequestPackage = sequelize.define('RequestPackage', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Request',
+            model: 'Requests',
             key: 'id',
         },
     },
@@ -21,7 +17,7 @@ const RequestPackage = sequelize.define('RequestPackage', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: commodities.models.Package,
+            model: 'Packages',
             key: 'id',
         },
     },
