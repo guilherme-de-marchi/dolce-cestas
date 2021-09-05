@@ -56,9 +56,6 @@ services:
 
         environment: 
             - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=admins-dev
-            - MYSQL_DATABASE=clients-dev
-            - MYSQL_DATABASE=commodities-dev
 
         networks: 
             - dolce_cestas
